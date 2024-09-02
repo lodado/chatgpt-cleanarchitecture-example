@@ -148,7 +148,7 @@ function repositoryErrorExample() {
 
 Each layer should map errors from the layer below to its specific error type before throwing it upwards.
 
-## Testing with Jest
+## Testing with Jest (not implemented)
 
 Testing is an integral part of the development process. This project uses Jest for testing, focusing primarily on the business logic (use cases) while minimizing the dependency on external systems. The `jest.txt` file provides guidelines and examples for writing tests.
 
@@ -169,7 +169,7 @@ describe('User Login Use Case', () => {
 });
 ```
 
-## Code Documentation
+## Code Documentation (not implemented)
 
 All code in the project is documented using JSDoc. This ensures that every function, class, and method is well-documented, facilitating easier maintenance and understanding of the codebase. The `jsdoc.txt` file provides examples and guidelines on how to write JSDoc comments.
 
