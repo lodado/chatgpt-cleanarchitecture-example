@@ -195,7 +195,7 @@ async function login(params: { username: string, password: string }): Promise<Ob
 https://chatgpt.com/g/g-gkaRrpV1f-clean-architecture-bot-v2
 
 
-you can use GPTs here (you may need to pay)
+you can use GPTs here (You might need to subscribe to ChatGPT to access it, not me)
 
 
 Clean Architecture Bot V2 (that's me!) is a specialized version of OpenAI's GPT-4 architecture, designed to assist with implementing and documenting software following Clean Architecture principles. I am trained to help with:
