@@ -23,52 +23,54 @@ export const useTodoListAdapter = () => {
   );
   const [taskRepository] = useState(() => new InMemoryTodoListRepository());
 
-  const addTaskUseCase = new AddTodoListUseCase(taskRepository);
-  const deleteTaskUseCase = new DeleteTodoListUseCase(taskRepository);
-  const toggleTodoListMarkUseCase = new ToggleMarkTodoListUseCase(
-    taskRepository
-  );
+    useEffect(() => {
+      /*** etc.. network logic */
+    }, []);
 
-  useEffect(() => {
-    /*** etc.. network logic */
-  }, []);
+    const handleAddTask = useCallback(
+      async ({ title }: { title: string }) => {
+        try {
+          const addTaskUseCase = new AddTodoListUseCase(taskRepository);
 
-  const handleAddTask = useCallback(
-    async ({ title }: { title: string }) => {
-      try {
-        const id = new Date().toISOString();
-        await addTaskUseCase.execute({ id, title });
-        setTasks(await taskRepository.getAllTasks());
-      } catch (error) {
-        throw mapUseCaseErrorToAdapterError(error as Error);
-      }
-    },
-    [addTaskUseCase]
-  );
+          const id = new Date().toISOString();
+          await addTaskUseCase.execute({ id, title });
+          setTasks(await taskRepository.getAllTasks());
+        } catch (error) {
+          throw mapUseCaseErrorToAdapterError(error as Error);
+        }
+      },
+      [InMemoryTodoListRepository]
+    );
 
-  const handleDeleteTask = useCallback(
-    async (params: { id: string }) => {
-      try {
-        await deleteTaskUseCase.execute(params);
-        setTasks(await taskRepository.getAllTasks());
-      } catch (error) {
-        throw mapUseCaseErrorToAdapterError(error as Error);
-      }
-    },
-    [deleteTaskUseCase]
-  );
+    const handleDeleteTask = useCallback(
+      async (params: { id: string }) => {
+        try {
+          const deleteTaskUseCase = new DeleteTodoListUseCase(taskRepository);
 
-  const handleMarkTaskAsCompleted = useCallback(
-    async (params: { id: string }) => {
-      try {
-        await toggleTodoListMarkUseCase.execute(params);
-        setTasks(await taskRepository.getAllTasks());
-      } catch (error) {
-        throw mapUseCaseErrorToAdapterError(error as Error);
-      }
-    },
-    [toggleTodoListMarkUseCase]
-  );
+          await deleteTaskUseCase.execute(params);
+          setTasks(await taskRepository.getAllTasks());
+        } catch (error) {
+          throw mapUseCaseErrorToAdapterError(error as Error);
+        }
+      },
+      [InMemoryTodoListRepository]
+    );
+
+    const handleMarkTaskAsCompleted = useCallback(
+      async (params: { id: string }) => {
+        try {
+          const toggleTodoListMarkUseCase = new ToggleMarkTodoListUseCase(
+            taskRepository
+          );
+
+          await toggleTodoListMarkUseCase.execute(params);
+          setTasks(await taskRepository.getAllTasks());
+        } catch (error) {
+          throw mapUseCaseErrorToAdapterError(error as Error);
+        }
+      },
+      [InMemoryTodoListRepository]
+    );
 
   return {
     tasks,
